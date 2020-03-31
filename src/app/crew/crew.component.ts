@@ -15,6 +15,7 @@ export class CrewComponent implements OnInit {
 
   memberBeingEdited: object = null;
   
+  
  
 
   constructor() { }
@@ -23,12 +24,8 @@ export class CrewComponent implements OnInit {
   }
 
   add(memberName: string, isFirst: boolean) {
-    if (!this.crew.includes(name)) {
-      
       this.crew.push({name: memberName, firstMission: isFirst});
-  }
-
-    
+  
   }
 
   remove(member: object) {
