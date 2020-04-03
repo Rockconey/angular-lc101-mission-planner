@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+
 @Component({
   selector: 'app-equipment',
   templateUrl: './equipment.component.html',
@@ -21,25 +22,58 @@ export class EquipmentComponent implements OnInit {
    cargoMass: number = 0;
    maximumAllowedMass: number = 2000;
    maxItems: number = 10;
+   mass: number;
+   itemMass: number = this.mass;
    item: object[];
-   itemMass: number = this.itemMass;
-   addCargoEnabled: boolean = true;
+   inactive: boolean = false;
+   nearMaxMass: boolean = true;
+   massBudget: number = this.maximumAllowedMass - this.cargoMass;
 
    constructor() { }
 
    ngOnInit() { }
 
    // Code your addItem function here:
-   addItem(item) {
+    addItem (item) {
      
-     this.cargoHold.push(this.item);
-     this.cargoMass = this.cargoMass + this.itemMass;
-     console.log(item);
+     this.cargoHold.push(item.name);
+     this.cargoMass = this.cargoMass + item.mass;
 
-     if (this.cargoMass <= this.maximumAllowedMass) {
-        return true;
-     } else {
-       return false;
+     if (this.cargoHold.length === this.maxItems) {
+       this.inactive;
      }
-   }
+
+     if (this.cargoMass >= this.maximumAllowedMass) {
+       
+      this.inactive;
+     }
+     
+     if (this.massBudget <= 200) {
+        this.nearMaxMass;
+      } else {
+        !this.nearMaxMass;
+     }
+
+      if (this.cargoMass <= this.maximumAllowedMass) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+    tooMuch(itemMass) {
+      if ((this.cargoMass + itemMass) > this.maximumAllowedMass) {
+        this.inactive;
+      } else {
+        !this.inactive;
+      }
+    }
+    
+    clearCargo() {
+      this.cargoHold = [];
+      this.cargoMass = 0;
+      !this.inactive;
+      this.massBudget = 2000
+    }
+      
 }
