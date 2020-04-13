@@ -26,35 +26,24 @@ export class EquipmentComponent implements OnInit {
    itemMass: number = this.mass;
    item: object[];
    inactive: boolean = false;
-   nearMaxMass: boolean = true;
-   massBudget: number = this.maximumAllowedMass - this.cargoMass;
+   
+   
+   
 
    constructor() { }
 
    ngOnInit() { }
 
    // Code your addItem function here:
-    addItem (item) {
+    addItem (item: object): boolean {
      
-     this.cargoHold.push(item.name);
-     this.cargoMass = this.cargoMass + item.mass;
+     this.cargoHold.push(item['name']);
+     this.cargoMass = this.cargoMass + item['mass'];
 
-     if (this.cargoHold.length === this.maxItems) {
-       this.inactive;
+     if (this.cargoHold.length === this.maxItems || this.cargoMass >= this.maximumAllowedMass) {
+       this.inactive = true;
      }
-
-     if (this.cargoMass >= this.maximumAllowedMass) {
-       
-      this.inactive;
-     }
-     
-     if (this.massBudget <= 200) {
-        this.nearMaxMass;
-      } else {
-        !this.nearMaxMass;
-     }
-
-      if (this.cargoMass <= this.maximumAllowedMass) {
+      if (this.maximumAllowedMass - this.cargoMass <= 200) {
         return true;
       } else {
         return false;
@@ -63,17 +52,25 @@ export class EquipmentComponent implements OnInit {
 
     tooMuch(itemMass) {
       if ((this.cargoMass + itemMass) > this.maximumAllowedMass) {
-        this.inactive;
+        this.inactive = true;
       } else {
-        !this.inactive;
+        this.inactive = false;
       }
     }
     
     clearCargo() {
       this.cargoHold = [];
       this.cargoMass = 0;
-      !this.inactive;
-      this.massBudget = 2000
+      this.inactive = false;
+      
+    }
+
+    isWarning(): boolean {
+      if (this.cargoMass >= 1800) {
+        return true;
+      } else {
+        return false;
+      }
     }
       
 }
