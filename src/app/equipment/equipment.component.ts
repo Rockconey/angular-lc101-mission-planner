@@ -26,6 +26,7 @@ export class EquipmentComponent implements OnInit {
    itemMass: number = this.mass;
    item: object[];
    inactive: boolean = false;
+  
    
    
    
@@ -36,19 +37,21 @@ export class EquipmentComponent implements OnInit {
 
    // Code your addItem function here:
     addItem (item: object): boolean {
-     
-     this.cargoHold.push(item['name']);
-     this.cargoMass = this.cargoMass + item['mass'];
+      if (this.cargoHold.length === this.maxItems || this.cargoMass >= this.maximumAllowedMass) {
+        this.inactive = true;
+      }
 
-     if (this.cargoHold.length === this.maxItems || this.cargoMass >= this.maximumAllowedMass) {
-       this.inactive = true;
-     }
+      this.cargoHold.push(item['name']);
+      this.cargoMass = this.cargoMass + item['mass'];
+
       if (this.maximumAllowedMass - this.cargoMass <= 200) {
         return true;
       } else {
         return false;
       }
+      
     }
+    
 
     tooMuch(itemMass) {
       if ((this.cargoMass + itemMass) > this.maximumAllowedMass) {
@@ -65,12 +68,16 @@ export class EquipmentComponent implements OnInit {
       
     }
 
-    isWarning(): boolean {
-      if (this.cargoMass >= 1800) {
-        return true;
-      } else {
-        return false;
-      }
-    }
+    // removeItem(item: object) {
+    //   this.cargoMass = this.cargoMass - this.item['mass'];
+    //   this.cargoHold.splice(this.cargoHold.indexOf(this.item), 1); 
+    // }
+
+    
+        
+          
+
       
 }
+      
+

@@ -7,10 +7,11 @@ button {
     margin: 2px;
     cursor: pointer;
     color: black;
+    background-color: #e69369;
 }    
 
 .selected {
-    background-color: gold;
+    background-color: #e69369;
 }
 
 h3 {
